@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PopularMoviesStageOne</string>
+    <string name="img_content_description">Image</string>
+    <string name="action_movies">Movies</string>
+    <string name="action_itm_pop_mv">Popular Movies</string>
+    <string name="action_itm_top_rated_mv">Top Rated Movies</string>
 </resources>

@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class PageResults {
+/**
+ * Model associated with the Movie fragment
+ */
+public class MovieDetails {
 
     @SerializedName("vote_count")
     private Integer voteCount;
@@ -48,9 +51,9 @@ public class PageResults {
     @SerializedName("release_date")
     private String releaseDate;
 
-    public PageResults(Integer voteCount, Integer id, Boolean isVideo, Double voteAverage, String title,
-                       Double popularity, String posterPath, String originalLanguage, String originalTitle,
-                       ArrayList<Integer> genreId, String backdropPath, Boolean isAdult, String overview, String releaseDate) {
+    public MovieDetails(Integer voteCount, Integer id, Boolean isVideo, Double voteAverage, String title,
+                        Double popularity, String posterPath, String originalLanguage, String originalTitle,
+                        ArrayList<Integer> genreId, String backdropPath, Boolean isAdult, String overview, String releaseDate) {
         this.voteCount = voteCount;
         this.id = id;
         this.isVideo = isVideo;

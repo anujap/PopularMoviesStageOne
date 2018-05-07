@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * Model associated with the Movie fragment
+ */
 public class MoviePage {
 
     @SerializedName("page")
@@ -16,7 +19,7 @@ public class MoviePage {
     private int totalPages;
 
     @SerializedName("results")
-    private ArrayList<PageResults> results;
+    private ArrayList<MovieDetails> results;
 
     public int getPage() {
         return page;
@@ -42,11 +45,11 @@ public class MoviePage {
         this.totalPages = totalPages;
     }
 
-    public ArrayList<PageResults> getResults() {
+    public ArrayList<MovieDetails> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<PageResults> results) {
+    public void setResults(ArrayList<MovieDetails> results) {
         this.results = results;
     }
 }

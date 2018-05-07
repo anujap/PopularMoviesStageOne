@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_movies"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/action_movies">
+
+        <menu>
+            <group android:checkableBehavior="single" />
+
+            <item
+                android:id="@+id/action_itm_popular_mv"
+                android:title="@string/action_itm_pop_mv"
+                android:checked="true"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_itm_top_rated_mv"
+                android:title="@string/action_itm_top_rated_mv"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+</menu>
