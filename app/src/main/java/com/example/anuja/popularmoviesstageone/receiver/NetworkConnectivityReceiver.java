@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 
 import com.example.anuja.popularmoviesstageone.common.ConnectionStatus;
@@ -36,7 +37,6 @@ public class NetworkConnectivityReceiver extends LiveData<ConnectionModel> {
     @Override
     protected void onInactive() {
         super.onInactive();
-
         context.unregisterReceiver(connectivityBroadcastReceiver);
     }
 

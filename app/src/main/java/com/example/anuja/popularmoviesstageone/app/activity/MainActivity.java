@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.anuja.popularmoviesstageone.R;
 import com.example.anuja.popularmoviesstageone.app.adapters.MovieGridAdapter;
@@ -66,12 +67,24 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
 
         switch(id) {
             case R.id.action_itm_popular_mv:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                }
+                else {
+                    item.setChecked(true);
+                }
                 return true;
             case R.id.action_itm_top_rated_mv:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                }
+                else {
+                    item.setChecked(true);
+                }
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
