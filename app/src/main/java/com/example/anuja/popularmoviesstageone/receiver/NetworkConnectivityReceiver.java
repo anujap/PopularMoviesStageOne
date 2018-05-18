@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 
 import com.example.anuja.popularmoviesstageone.common.ConnectionStatus;
@@ -43,11 +42,11 @@ public class NetworkConnectivityReceiver extends LiveData<ConnectionModel> {
     /**
      * broadcast receiver
      */
-    private BroadcastReceiver  connectivityBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver connectivityBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getExtras() != null) {
-                checkConnnectivity(context);
+                checkConnectivity(context);
             }
         }
     };
@@ -55,7 +54,7 @@ public class NetworkConnectivityReceiver extends LiveData<ConnectionModel> {
     /**
      * Ref:- https://developer.android.com/training/monitoring-device-state/connectivity-monitoring
      */
-    public void checkConnnectivity(Context context) {
+    public void checkConnectivity(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 

@@ -14,5 +14,5 @@ public class MovieUtils {
     public static final String ENDPOINT_TOP_RATED = "top_rated";
 
     public static final String BASE_IMG_URL = "http://image.tmdb.org/t/p/";
-    public static final String IMG_SIZE = "w185";
+    public static final String IMG_SIZE = "w185/";
 }

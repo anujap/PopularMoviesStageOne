@@ -20,6 +20,12 @@ import com.example.anuja.popularmoviesstageone.receiver.NetworkConnectivityRecei
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    // connection is available
+    protected abstract void onConnected();
+
+    // connection is not available
+    protected abstract void onDisconnected();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,24 +44,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onChanged(@Nullable ConnectionModel connectionModel) {
                 if(connectionModel.getConnectionStatus() == ConnectionStatus.CONNECTED) {
                     //update accordingly
+                    onConnected();
                 }
                 else if(connectionModel.getConnectionStatus() == ConnectionStatus.NOT_CONNECTED) {
                     // update accordingly
                     Toast.makeText(BaseActivity.this, "Device is not connected", Toast.LENGTH_LONG).show();
+                    onDisconnected();
                     showConnectionDialog();
                 }
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     /**

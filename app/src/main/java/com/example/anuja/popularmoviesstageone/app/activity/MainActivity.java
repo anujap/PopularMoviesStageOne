@@ -1,19 +1,21 @@
 package com.example.anuja.popularmoviesstageone.app.activity;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.anuja.popularmoviesstageone.R;
 import com.example.anuja.popularmoviesstageone.app.adapters.MovieGridAdapter;
 import com.example.anuja.popularmoviesstageone.model.MovieDetails;
+import com.example.anuja.popularmoviesstageone.viewmodel.MainViewModel;
 
 import java.util.List;
 
@@ -26,10 +28,15 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
     private List<MovieDetails> mPopularMoviesList;
     private List<MovieDetails> mTopRatedMoviesList;
 
+    private MainViewModel mainViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // get the viewmodel
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -67,20 +74,10 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
 
         switch(id) {
             case R.id.action_itm_popular_mv:
-                if(item.isChecked()) {
-                    item.setChecked(false);
-                }
-                else {
-                    item.setChecked(true);
-                }
+                displayMoviesOnMenuSelection(item, mainViewModel.getPopularMoviesList().getValue());
                 return true;
             case R.id.action_itm_top_rated_mv:
-                if(item.isChecked()) {
-                    item.setChecked(false);
-                }
-                else {
-                    item.setChecked(true);
-                }
+                displayMoviesOnMenuSelection(item, mainViewModel.getTopRatedMoviesList().getValue());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -88,10 +85,53 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
     }
 
     /**
+     * Function called to display the list of movies based on the menu
+     * selection - Popular/Top Rated
+     * @param item - Menu item
+     * @param movies - list of movies (Popular/Top Rated)
+     */
+    private void displayMoviesOnMenuSelection(MenuItem item, List<MovieDetails> movies) {
+        item.setChecked(item.isChecked() ? false : true);
+        toolbar.setTitle(item.getTitle().toString());
+        movieGridAdapter.swapLists(movies);
+    }
+
+    private void retrieveQueriedMovies() {
+        mainViewModel.displayMovies();
+
+        mainViewModel.getPopularMoviesList().observe(this, movieDetails -> {
+            Log.i("Test","MainActivity: " + movieDetails.get(0).getTitle());
+            movieGridAdapter.swapLists(movieDetails);
+        });
+
+        mainViewModel.getTopRatedMoviesList().observe(this, movieDetails -> {
+            movieGridAdapter.swapLists(movieDetails);
+        });
+    }
+
+
+    /**
      * Function called when the grid item is clicked.
      */
     @Override
     public void onGridItemClick(MovieDetails movie) {
         //click event when an item is clicked
+    }
+
+    /**
+     * Function called when the connection is available
+     */
+    @Override
+    protected void onConnected() {
+        Log.i("Test","MainActivity: connected");
+        retrieveQueriedMovies();
+    }
+
+    /**
+     * Function called when the connection is not available
+     */
+    @Override
+    protected void onDisconnected() {
+
     }
 }

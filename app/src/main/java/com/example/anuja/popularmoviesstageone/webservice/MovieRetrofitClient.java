@@ -6,21 +6,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  *
  */
-public class MovieWebserviceClient {
+public class MovieRetrofitClient {
 
     private static MovieWebserviceInterface movieWebservice;
 
-    private static MovieWebserviceClient mwClient;
+    private static MovieRetrofitClient mClient;
 
-    public synchronized static MovieWebserviceClient getInstance() {
-        if(mwClient == null) {
-            mwClient = new MovieWebserviceClient();
+    public synchronized static MovieRetrofitClient getInstance() {
+        if(mClient == null) {
+            mClient = new MovieRetrofitClient();
         }
 
-        return mwClient;
+        return mClient;
     }
 
-    private MovieWebserviceClient() {
+    private MovieRetrofitClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MovieUtils.MOVIE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
