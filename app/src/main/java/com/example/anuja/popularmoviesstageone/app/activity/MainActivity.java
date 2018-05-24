@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
     // viewmodel
     private MainViewModel mainViewModel;
 
-    private String sortMovie = null;
+    private String sortMovie = SortMovie.POPULAR.name();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +83,6 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
         movieGridAdapter = new MovieGridAdapter(null, this);
         recyclerView.setAdapter(movieGridAdapter);
 
-        /**
-         * Ref:- https://stackoverflow.com/questions/29579811/changing-number-of-columns-with-gridlayoutmanager-and-recyclerview
-         */
         recyclerView.setLayoutManager(new GridLayoutManager(this, calculateNoOfColumns()));
     }
 
@@ -94,10 +91,11 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
 
-        if(sortMovie == null || TextUtils.equals(sortMovie, SortMovie.POPULAR.name()))
+        if(TextUtils.equals(sortMovie, SortMovie.POPULAR.name()))
             menu.getItem(0).setChecked(true);
         else
             menu.getItem(1).setChecked(true);
+
         return true;
     }
 
@@ -139,13 +137,17 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
         mainViewModel.displayMovies();
 
         mainViewModel.getTopRatedMoviesList().observe(this, movieDetails -> {
-            if(TextUtils.equals(sortMovie, SortMovie.TOP_RATED.name()))
+            if(TextUtils.equals(sortMovie, SortMovie.TOP_RATED.name())) {
                 movieGridAdapter.swapLists(movieDetails);
+            }
+
         });
 
         mainViewModel.getPopularMoviesList().observe(this, movieDetails -> {
-            if(TextUtils.equals(sortMovie, SortMovie.POPULAR.name()))
+            if(TextUtils.equals(sortMovie, SortMovie.POPULAR.name())) {
                 movieGridAdapter.swapLists(movieDetails);
+            }
+
         });
     }
 
@@ -173,7 +175,11 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
      * Function called when the connection is not available
      */
     @Override
-    protected void onDisconnected() {}
+    protected void onDisconnected() {
+        if(mainViewModel.getPopularMoviesList().getValue() == null) {
+            Toast.makeText(this, "Connection unavailable", Toast.LENGTH_LONG).show();
+        }
+    }
 
 
     /**

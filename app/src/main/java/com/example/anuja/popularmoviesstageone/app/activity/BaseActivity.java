@@ -42,43 +42,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         connectivityReceiver.observe(this, new Observer<ConnectionModel>() {
             @Override
             public void onChanged(@Nullable ConnectionModel connectionModel) {
-                if(connectionModel.getConnectionStatus() == ConnectionStatus.CONNECTED) {
-                    //update accordingly
+                if(connectionModel.getConnectionStatus() == ConnectionStatus.CONNECTED)
                     onConnected();
-                }
-                else if(connectionModel.getConnectionStatus() == ConnectionStatus.NOT_CONNECTED) {
-                    // update accordingly
-                    Toast.makeText(BaseActivity.this, "Device is not connected", Toast.LENGTH_LONG).show();
+                else if(connectionModel.getConnectionStatus() == ConnectionStatus.NOT_CONNECTED)
                     onDisconnected();
-                    showConnectionDialog();
-                }
             }
         });
-    }
-
-    /**
-     * Function called to show connection dialog, when there is no
-     * connectivity available.
-     */
-    private void showConnectionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(R.string.no_connection_title);
-        builder.setMessage(R.string.no_connection_message);
-        builder.setPositiveButton(R.string.settings, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-            }
-        });
-
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
-
-        builder.show();
     }
 }

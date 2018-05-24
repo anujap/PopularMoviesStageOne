@@ -20,6 +20,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The ViewModel class
+ *
+ * References:- https://proandroiddev.com/refactor-with-the-new-viewmodel-class-b334fd88bf82
+ */
 public class MainViewModel extends ViewModel {
 
     private static final String TAG = "MainViewModel";
@@ -29,7 +34,6 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<List<MovieDetails>> popularMoviesList;
     private MutableLiveData<List<MovieDetails>> topRatedMoviesList;
 
-    // https://proandroiddev.com/refactor-with-the-new-viewmodel-class-b334fd88bf82
     public MutableLiveData<List<MovieDetails>> getPopularMoviesList() {
         if(popularMoviesList == null)
             popularMoviesList = new MutableLiveData<>();
@@ -46,7 +50,6 @@ public class MainViewModel extends ViewModel {
      * Function used to download the movies specific to the endpoints
      */
     public void displayMovies() {
-
         if(popularMoviesList == null) {
             movieWebservice.getMovies(MovieUtils.ENDPOINT_POPULARITY, MovieUtils.API_KEY).enqueue(new Callback<MoviePage>() {
                 @Override
