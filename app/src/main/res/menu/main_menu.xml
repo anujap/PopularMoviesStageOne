@@ -7,6 +7,7 @@
             android:id="@+id/action_itm_popular_mv"
             android:title="@string/action_itm_pop_mv"
             android:orderInCategory="1"
+            android:checked="true"
             app:showAsAction="never" />
 
         <item

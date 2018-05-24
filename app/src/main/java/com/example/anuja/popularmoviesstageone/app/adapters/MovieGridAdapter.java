@@ -3,8 +3,8 @@ package com.example.anuja.popularmoviesstageone.app.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.anuja.popularmoviesstageone.R;
@@ -43,8 +43,7 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Movi
     public void onBindViewHolder(@NonNull MoviesViewHolder holder, int position) {
         MovieDetails movie = movieList.get(position);
 
-        String imagePath = MovieUtils.BASE_IMG_URL + MovieUtils.MOVIE_PATH + MovieUtils.IMG_SIZE + movie.getPosterPath();
-        Log.i("Test", "imagePath: " + imagePath);
+        String imagePath = MovieUtils.BASE_IMG_URL + MovieUtils.THUMB_IMG_SIZE + movie.getPosterPath();
 
         Picasso.with(context)
                 .load(imagePath)
@@ -53,7 +52,6 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Movi
                 .into(holder.itemListBinding.ivMovieImages);
 
         //.error(R.drawable.movie_poster_placeholder_error)
-        //get the images;
     }
 
     @Override
@@ -64,7 +62,7 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Movi
         return movieList.size();
     }
 
-    public class MoviesViewHolder extends RecyclerView.ViewHolder {
+    public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemListBinding itemListBinding;
 
         public MoviesViewHolder(ItemListBinding itemListBinding) {
@@ -72,9 +70,15 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Movi
 
             this.itemListBinding = itemListBinding;
 
-            //Ref:-https://medium.com/google-developers/android-data-binding-recyclerview-db7c40d9f0e4
-            //  itemListBinding.executePendingBindings();
             //click listener
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            MovieDetails movieDetail = movieList.get(position);
+            itemClickListener.onGridItemClick(movieDetail);
         }
     }
 

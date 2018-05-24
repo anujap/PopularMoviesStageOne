@@ -29,6 +29,7 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<List<MovieDetails>> popularMoviesList;
     private MutableLiveData<List<MovieDetails>> topRatedMoviesList;
 
+    // https://proandroiddev.com/refactor-with-the-new-viewmodel-class-b334fd88bf82
     public MutableLiveData<List<MovieDetails>> getPopularMoviesList() {
         if(popularMoviesList == null)
             popularMoviesList = new MutableLiveData<>();

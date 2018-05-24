@@ -5,7 +5,13 @@
     <string name="action_itm_pop_mv">Popular Movies</string>
     <string name="action_itm_top_rated_mv">Top Rated Movies</string>
     <string name="no_connection_title">Network unavailable</string>
-    <string name="no_connection_message">Unable to connection to the Network</string>
+    <string name="no_connection_message">Unable to connect to the Network</string>
     <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
+
+    <!-- Movie Details Activity -->
+    <string name="str_movie_release_date">Release Date</string>
+    <string name="str_movie_rating">Avg. Rating</string>
+    <string name="str_movie_plot">Plot Synopsis</string>
+
 </resources>
