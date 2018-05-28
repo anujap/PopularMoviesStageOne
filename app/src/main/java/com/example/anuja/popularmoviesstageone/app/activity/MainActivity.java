@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
@@ -35,6 +37,7 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity implements MovieGridAdapter.GridItemClickListener {
 
+    // constants
     protected static final String MOVIE_DETAIL_ITEM = "movie_detail_item";
     private static final String SORT_OPTION = "sort";
 
@@ -42,6 +45,8 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private MovieGridAdapter movieGridAdapter;
+    private Snackbar snackbar;
+    private CoordinatorLayout coordinatorLayout;
 
     // viewmodel
     private MainViewModel mainViewModel;
@@ -69,6 +74,7 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
      * Function called to set up the toolbar
      */
     private void setUpToolBar() {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle(R.string.action_itm_pop_mv);
         setSupportActionBar(toolbar);
@@ -92,9 +98,9 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
         inflater.inflate(R.menu.main_menu, menu);
 
         if(TextUtils.equals(sortMovie, SortMovie.POPULAR.name()))
-            menu.getItem(0).setChecked(true);
+            updateMenuSelection(menu.getItem(0));
         else
-            menu.getItem(1).setChecked(true);
+            updateMenuSelection(menu.getItem(1));
 
         return true;
     }
@@ -124,9 +130,16 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
      * @param movies - list of movies (Popular/Top Rated)
      */
     private void displayMoviesOnMenuSelection(MenuItem item, List<MovieDetails> movies) {
+        updateMenuSelection(item);
+        movieGridAdapter.swapLists(movies);
+    }
+
+    /**
+     * Function called to update the menu based on the selection
+     */
+    private void updateMenuSelection(MenuItem item) {
         item.setChecked(item.isChecked() ? false : true);
         toolbar.setTitle(item.getTitle().toString());
-        movieGridAdapter.swapLists(movies);
     }
 
     /**
@@ -176,8 +189,9 @@ public class MainActivity extends BaseActivity implements MovieGridAdapter.GridI
      */
     @Override
     protected void onDisconnected() {
-        if(mainViewModel.getPopularMoviesList().getValue() == null) {
-            Toast.makeText(this, "Connection unavailable", Toast.LENGTH_LONG).show();
+        if(snackbar == null) {
+            snackbar = Snackbar.make(coordinatorLayout, R.string.no_connection_message, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 

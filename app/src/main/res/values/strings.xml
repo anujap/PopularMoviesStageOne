@@ -1,13 +1,11 @@
 <resources>
-    <string name="app_name">PopularMoviesStageOne</string>
+    <string name="app_name">Movies Phase 1</string>
     <string name="img_content_description">Image</string>
     <string name="action_movies">Movies</string>
     <string name="action_itm_pop_mv">Popular Movies</string>
     <string name="action_itm_top_rated_mv">Top Rated Movies</string>
-    <string name="no_connection_title">Network unavailable</string>
-    <string name="no_connection_message">Unable to connect to the Network</string>
+    <string name="no_connection_message">No Network Connection</string>
     <string name="settings">Settings</string>
-    <string name="cancel">Cancel</string>
 
     <!-- Movie Details Activity -->
     <string name="str_movie_release_date">Release Date</string>

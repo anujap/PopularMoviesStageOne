@@ -16,7 +16,7 @@ import com.example.anuja.popularmoviesstageone.model.ConnectionModel;
 import com.example.anuja.popularmoviesstageone.receiver.NetworkConnectivityReceiver;
 
 /**
- * This is the Base class for all the Activities
+ * This is the Base class for all the activities
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * This is an adapter class to display movies in the grid format
+ */
 public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.MoviesViewHolder> {
 
     private List<MovieDetails> movieList;
@@ -50,9 +53,7 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Movi
                 .fit()
                 .placeholder(R.drawable.movie_poster_placeholder)
                 .into(holder.itemListBinding.ivMovieImages);
-
-        //.error(R.drawable.movie_poster_placeholder_error)
-    }
+        }
 
     @Override
     public int getItemCount() {

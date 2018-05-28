@@ -3,9 +3,6 @@ package com.example.anuja.popularmoviesstageone.webservice;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- *
- */
 public class MovieRetrofitClient {
 
     private static MovieWebserviceInterface movieWebservice;
